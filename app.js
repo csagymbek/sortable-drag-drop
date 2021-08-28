@@ -14,20 +14,20 @@ containers.forEach((container) => {
   container.addEventListener("dragover", (e) => {
     e.preventDefault();
     const dragging = document.querySelector(".dragging");
-    const afterEl = getDragAfterElement(container, e.clientY);
-    if (afterEl === null) {
-      container.appendChild(dragging);
+    const dragAfterEl = getDragAfterElement(container, e.clientY);
+    if (dragAfterEl) {
+      container.insertBefore(dragging, dragAfterEl);
     } else {
-      container.insertBefore(dragging, afterEl);
+      container.appendChild(dragging);
     }
   });
 });
 
 const getDragAfterElement = (container, y) => {
-  const draggableElements = Array.from(
-    container.querySelectorAll(".draggable:not(.dragging)")
-  );
-  return draggableElements.reduce(
+  const draggableElementsArray = [
+    ...container.querySelectorAll(".draggable:not(.dragging)"),
+  ];
+  return draggableElementsArray.reduce(
     (closest, child) => {
       const box = child.getBoundingClientRect();
       const offset = y - box.top - box.height / 2;
