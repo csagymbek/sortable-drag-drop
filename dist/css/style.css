@@ -23,4 +23,8 @@ body {
   border-radius: 1rem;
   cursor: move;
 }
+
+.draggable.dragging {
+  opacity: .5;
+}
 /*# sourceMappingURL=style.css.map */
